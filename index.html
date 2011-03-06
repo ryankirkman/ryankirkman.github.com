@@ -3,7 +3,32 @@
         <title>Ryan Kirkman - Snippets</title>
     </head>
     <body>
-        <h1>Make npm work for you</h1>
-        <p>Run npm as the user who installed npm. Avoid installing npm as root. It will make your life easier.</p>
+        <h1>npm, express.js and connect</h1>
+        <p>Connect (the node.js middleware framework) recently updated to its 1.0 release. If you're using Express.js, you will need to update to Express.js version 2.x to be compatible with Connect version 1.x.</p>
+        <p>Notes:</p>
+        <ul>
+            <li>Connect 1.0 removed the following modules:
+                <ul>
+                    <li>cache (This cached everything, even dynamic content. Caused us quite a few problems)</li>
+                    <li>conditionalGet (e.g. 304 - Not Modified)</li>
+                    <li>staticGzip</li>
+                    <li>gzip (Apparently this was buggy. Yeah, we used it)</li>
+                    <li>lint</li>
+                </ul>
+            </li>
+            <li>Connect 1.0 renamed the following modules:
+                <ul>
+                    <li>staticProvider -> static</li>
+                    <li>bodyDecoder -> bodyParser</li>
+                    <li>cookieDeconder -> cookieParser</li>
+                </ul>
+            </li>
+        </ul>
+        <h1>Using npm</h1>
+        <ul>
+            <li>Run npm as the user who installed npm.</li>
+            <li>Avoid installing npm as root.</li>
+            <li>The above will make your life easier.</li>
+        </ul>
     </body>
 </html>
