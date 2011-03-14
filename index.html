@@ -1,8 +1,33 @@
 <html>
     <head>
         <title>Ryan Kirkman - Snippets</title>
+        <style>
+            code { background-color: #E7E7E7; padding: 1px; border: 1px solid #888888; }
+            body { width: 960px; }
+        </style>
     </head>
     <body>
+        <h1>Using (couchdb) Cradle: Error free global configuration</h1>
+        <p>
+        You may want to use the global configuration function in <a href="https://github.com/cloudhead/cradle">Cradle</a> so you can open a connection like so
+        <br />
+        <br />
+        <code>var db = new(cradle.Connection)().database('starwars');</code>
+        <br />
+        <br />
+        If your CouchDB server is not at 127.0.0.1:5984, the object you pass to <code>cradle.setup</code> <strong>must</strong> contain the following properties:
+        </p>
+        <ul>
+            <li>host</li>
+            <li>port</li>
+        </ul>
+
+        <p>
+        Not doing so will result in frustrating errors. The <code>cradle.setup</code> function expects these values, meaning they will be set to null (default function argument value) if not provided.
+        </p>
+
+        <p><strong>NB:</strong> If you aren't using auth, the auth property is optional.</p>
+
         <h1>npm, express.js and connect</h1>
         <p>Connect (the node.js middleware framework) recently updated to its 1.0 release. If you're using Express.js, you will need to update to Express.js version 2.x to be compatible with Connect version 1.x.</p>
         <p>Notes:</p>
@@ -24,6 +49,7 @@
                 </ul>
             </li>
         </ul>
+
         <h1>Using npm</h1>
         <ul>
             <li>Run npm as the user who installed npm.</li>
