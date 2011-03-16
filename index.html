@@ -7,6 +7,10 @@
         </style>
     </head>
     <body>
+        <h1>CouchDB: Don't store stuff in the _users database</h1>
+        <p>Don't store stuff (like user details) in the <code>_users</code> database. It's a pain in the ass. See <a href='http://comments.gmane.org/gmane.comp.db.couchdb.user/12700'>this</a> link.</p>
+        <p>The conclusion I have come to is storing user details in another document in another database with a 1:1 mapping to the <code>_users</code> user document (as per the article above).</p>
+
         <h1>Using (couchdb) Cradle: Error free global configuration</h1>
         <p>
         You may want to use the global configuration function in <a href="https://github.com/cloudhead/cradle">Cradle</a> so you can open a connection like so
