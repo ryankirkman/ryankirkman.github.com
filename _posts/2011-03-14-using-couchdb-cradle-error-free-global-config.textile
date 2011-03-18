@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Using (couchdb) Cradle: Error free global configuration
+title: Using Couchdb Cradle - Error free global configuration
 ---
 
 h1. {{page.title}}
