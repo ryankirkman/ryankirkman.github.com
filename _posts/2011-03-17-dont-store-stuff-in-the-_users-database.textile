@@ -1,0 +1,12 @@
+---
+layout: post
+title: Don't store stuff in the _users database
+---
+
+h1. {{page.title}}
+
+p(meta). 17 Mar 2011
+
+Don't store stuff (like user details) in the *_users* database. It's a pain in the ass. See "this":http://comments.gmane.org/gmane.comp.db.couchdb.user/12700 link.
+
+I plan to store user details in another document in another database with a 1:1 mapping to the *_users* user document (as per the article above).

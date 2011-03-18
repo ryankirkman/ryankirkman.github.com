@@ -1,0 +1,20 @@
+---
+layout: post
+title: Using (couchdb) Cradle: Error free global configuration
+---
+
+h1. {{page.title}}
+
+p(meta). 14 Mar 2011
+
+You may want to use the global configuration function in "Cradle":https://github.com/cloudhead/cradle so you can open a connection like so:
+
+{% highlight javascript %}
+var db = new(cradle.Connection)().database('starwars');
+{% endhighlight %}
+
+If your CouchDB server is not at "http://127.0.0.1:5984":http://127.0.0.1:5984, the object you pass to cradle.setup *must* contain the following properties:
+* host
+* port
+
+Not doing so will result in frustrating errors. The *cradle.setup* function expects these values, meaning they will be set to null (default function argument value) if not provided.
