@@ -1,0 +1,12 @@
+---
+layout: post
+title: Delete all non-design docs in a CoudbDB database
+---
+
+h1. {{page.title}}
+
+p(meta). 18 Mar 2011
+
+I recently needed to delete all non-design docs in a CouchDB database. Here's how I did it:
+
+<script src="https://gist.github.com/873942.js?file=couchdb_delete_non_design_docs.js"></script>
