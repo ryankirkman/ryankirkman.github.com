@@ -1,0 +1,12 @@
+---
+layout: post
+title: How to authenticate to an express.js webservice with curl
+---
+
+h1. {{page.title}}
+
+p(meta). 29 Mar 2011
+
+Here's a useful snippet for use when developing a web service that speaks JSON. In this particular example, I'm developing a web service with node.js as the server and CouchDB as the database.
+
+<script src="https://gist.github.com/892018.js"> </script>
