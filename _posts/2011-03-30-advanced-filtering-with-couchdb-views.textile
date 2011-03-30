@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Couchdb: Filtering Views by Parts of a Complex Key
+title: Couchdb - Filtering Views by Parts of a Complex Key
 ---
 
 h1. {{page.title}}
