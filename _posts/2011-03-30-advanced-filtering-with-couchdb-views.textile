@@ -11,9 +11,7 @@ Recently I had to sort a CouchDB view based on date while also filtering that vi
 
 In CouchDB, I knew that sorting of view results is based upon the key. Therefore, I needed a way to filter by part of a complex key ( e.g. field1 and field 2 from [field1, field2, field3] ). But where do you go with a question like this if the internet doesn't want to play ball? IRC of course!
 
-<pre>
-
-<ryankirkman> How do I create a view that lets me filter by two arbitrary fields, and is ordered by date?
+bq. <ryankirkman> How do I create a view that lets me filter by two arbitrary fields, and is ordered by date?
 <ryankirkman> I am thinking now that I will have to use a startkey and endkey, with the date of the startkey set to some early date, and the date of the endkey set to some very distant date
 <ryankirkman> And use a complex key like [field1, field2, date]
 <okurow> ryankirkman: then you have to use field1 AND field 2
@@ -42,5 +40,3 @@ In CouchDB, I knew that sorting of view results is based upon the key. Therefore
 <okurow> so the endkey must be something that is higher than the expected last result
 <okurow> you can.. but only if you emit (date)
 <okurow> whenever you have a complex key.. you have to use startkey&endkey
-
-</pre>
