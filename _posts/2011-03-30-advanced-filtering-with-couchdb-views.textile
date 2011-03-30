@@ -1,0 +1,46 @@
+---
+layout: post
+title: Couchdb: Filtering Views by Parts of a Complex Key
+---
+
+h1. {{page.title}}
+
+p(meta). 30 Mar 2011
+
+Recently I had to sort a CouchDB view based on date while also filtering that view based on multiple values.
+
+In CouchDB, I knew that sorting of view results is based upon the key. Therefore, I needed a way to filter by part of a complex key ( e.g. field1 and field 2 from [field1, field2, field3] ). But where do you go with a question like this if the internet doesn't want to play ball? IRC of course!
+
+<pre>
+
+<ryankirkman> How do I create a view that lets me filter by two arbitrary fields, and is ordered by date?
+<ryankirkman> I am thinking now that I will have to use a startkey and endkey, with the date of the startkey set to some early date, and the date of the endkey set to some very distant date
+<ryankirkman> And use a complex key like [field1, field2, date]
+<okurow> ryankirkman: then you have to use field1 AND field 2
+<okurow> and its sorted by 1.field1 2. field3 and 3rd date
+<okurow> user [date,field1,field2] .. then you can use either field1, OR field1 & field2
+<ryankirkman> okurow: That's cool
+<okurow> and [date,field2,field1] then you can use date, either field2 OR field2 & field 1
+<ryankirkman> I see
+<ryankirkman> okurow: But is my assumption and the start and end key correct?
+<ryankirkman> okurow: I feel like there has to be a nicer solution, but I can't think of it
+<okurow> then startkey=[fromdate,key1]&endkey=[todate,key1,{}]
+<ryankirkman> okurow: I can just omit values of the complex key?
+<okurow> ryankirkman: ?? dont understand your question
+<ryankirkman> I was under the impression that when filtering by complex key, if you had [date, field1, field2], you would have to specify all values
+<ryankirkman> in your example above, you omitted key2 from the startkey
+<okurow> ryankirkman: no
+<okurow> just from left to right
+<okurow> if you emit [date,key1,key2] you cannot seach for [date,key2] ...
+<okurow> but you can use startkey=[date]&endkey=[date,{} to have all without key1,key2
+<okurow> ( you will get key1,key2 in the list )
+<ryankirkman> what does the null object at the end do?
+<ryankirkman> I feel like it has higher order than anything your view may return, so you use it as a hack to get all results
+<okurow> if you do not use it, the result will be null, cause, the range from start to end is zero ( endkeys are normally not included in the resultlist)
+<ryankirkman> ahhh
+<ryankirkman> It's interesting that I can't just do " key=[date] "
+<okurow> so the endkey must be something that is higher than the expected last result
+<okurow> you can.. but only if you emit (date)
+<okurow> whenever you have a complex key.. you have to use startkey&endkey
+
+</pre>
