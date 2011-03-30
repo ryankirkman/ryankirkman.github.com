@@ -7,9 +7,13 @@ h1. {{page.title}}
 
 p(meta). 30 Mar 2011
 
-Recently I had to sort a CouchDB view based on date while also filtering that view based on multiple values.
+Recently I had to sort a CouchDB view based on date while filtering that view by user and status.
 
-In CouchDB, I knew that sorting of view results is based upon the key. Therefore, I needed a way to filter by part of a complex key ( e.g. field1 and field 2 from [field1, field2, field3] ). But where do you go with a question like this if the internet doesn't want to play ball? IRC of course!
+In CouchDB, I knew that sorting of view results is based upon the key. Therefore, I needed a way to filter by part of a complex key ( e.g. field1 and field 2 from [field1, field2, field3], which in my case would have been user and status from [user, status, date] ). But where do you go with a question like this if the internet doesn't want to play ball? IRC of course!
+
+*Summary*: You have to use *startkey=* & *endkey=* if you want to filter by part of a complex key. If you want to filter using just *key=*, all parts of the complex key must be specified or you will get a null result, as *key=* is looking for an exact match.
+
+Note that when filtering by part of the complex key, you can only filter by in-order combinations. For example, if you had *[field1, field2, field3]* as a key, you could only filter by *[key1]*, *[key1, key2]* or *[key1, key2, key3]* (in their respective orders).
 
 <pre style="white-space: pre-wrap;">
 <code>
