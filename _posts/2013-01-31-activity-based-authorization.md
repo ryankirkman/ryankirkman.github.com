@@ -15,6 +15,7 @@ Three things are required to successfully implement activity based authorization
 
 A role represents a collection of activities. It saves you having to associate activities directly to a user. By decoupling activities and users via roles, you are able to add activities to roles on the fly.
 
+
 ## A way of specifying which activities require authorization
 
 In C# this could be implemented via attributes. The most flexible solution in this case is a custom attribute [Authorize] which has the following characteristics:
@@ -38,6 +39,7 @@ In C# this could be implemented via attributes. The most flexible solution in th
 * When the [Authorize] attribute is applied to a class, it acts as if each public method of the class has the [Authorize] attribute specified
 	* This requires that all method names map directly to Activity names
 
+
 ## A mechanism to authorize a user for a given activity
 
 As above, the attribute implementation would take the Activity name, the user and the inferred role based on the user and check to see if that role mapped to the specified Activity:
@@ -53,6 +55,7 @@ public void AuthorizeAttribute(string Activity) {
     }
 }
 ```
+
 
 ## What is an activity?
 
