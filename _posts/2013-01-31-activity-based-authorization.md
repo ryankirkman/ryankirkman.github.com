@@ -5,7 +5,10 @@ title: Activity Based Authorization
 
 # {{page.title}}
 
-Three things are required to successfully implement activity based authorization:
+If you don't know why you should do activity based authorization, [read this first](http://lostechies.com/derickbailey/2011/05/24/dont-do-role-based-authorization-checks-do-activity-based-checks/ "Don’t Do Role-Based Authorization Checks; Do Activity-Based Checks").
+
+
+### Three things are required to successfully implement activity based authorization:
 
   1. A mapping of roles to activities (usually in a database)
   2. A way of specifying which activities require authorization
