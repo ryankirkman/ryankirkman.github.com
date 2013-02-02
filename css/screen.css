@@ -79,9 +79,9 @@ table {
 /*****************************************************************************/
 
   .site {
-    font-size: 110%;
+    font-size: 130%;
     text-align: justify;
-    width: 40em;
+    width: 45em;
     margin: 3em auto 2em auto;
     line-height: 1.5em;
   }
@@ -210,4 +210,5 @@ table {
 
   #post h2 {
     font-size: 1.5em;
+    text-align: left;
   }
