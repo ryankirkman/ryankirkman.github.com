@@ -5,7 +5,7 @@ title: Activity Based Authorization
 
 # {{page.title}}
 
-Activity based authorization is an amazing concept. It can save you a lot of work, and significantly increase the flexibility of your authorization system. Imagine data driven authorization: fully configurable authentication without changing any source code. To get a better understanding of the concept, [read this first](http://lostechies.com/derickbailey/2011/05/24/dont-do-role-based-authorization-checks-do-activity-based-checks/ "Don’t Do Role-Based Authorization Checks; Do Activity-Based Checks").
+Activity based authorization is an amazing concept. It can save you a lot of work, and significantly increase the flexibility of your authorization system. Imagine data driven authorization: fully configurable without changing any source code. To get a better understanding of the concept, [read this first](http://lostechies.com/derickbailey/2011/05/24/dont-do-role-based-authorization-checks-do-activity-based-checks/ "Don’t Do Role-Based Authorization Checks; Do Activity-Based Checks").
 
 
 ### Three things are required to successfully implement activity based authorization:
