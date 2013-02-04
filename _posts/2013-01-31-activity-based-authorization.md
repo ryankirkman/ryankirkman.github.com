@@ -83,7 +83,7 @@ public void AuthActivityAttribute(string Activity) {
 
     if(GetActivitiesForRole(userRole).Contains(Activity) == false)
     {
-        // The user is unAuthActivityd for this activity
+        // The user is unauthorized for this activity
     }
 }
 ```
