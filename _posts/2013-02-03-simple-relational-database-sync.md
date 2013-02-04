@@ -6,7 +6,7 @@ title: Simple Relational Database Synchronization
 Simple Relational Database Sync
 ===============================
 
-I recently designed a system that facilitates simple synchronization (sync) between databases. The techniques used are general enough to be used in any relational database system.
+This article describes a system that facilitates simple synchronization (sync) between databases. The system is designed for simple sync between a heterogeneous collection of databases in which it is difficult to implement a prepackaged replication solution.
 
 The sync system was originally designed for relatively low transaction slave databases and an aggregation master database. An example would be syncing user preferences, browsing history and bookmarks between computers in Google Chrome.
 
