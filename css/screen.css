@@ -86,11 +86,11 @@ table {
     line-height: 1.5em;
   }
 
-.title {
-  color: #a00;
-  font-weight: bold;
-  margin-bottom: 2em;
-}
+  .title {
+    color: #a00;
+    font-weight: bold;
+    margin-bottom: 2em;
+  }
 
   .site .title a {
     color: #a00;
