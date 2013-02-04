@@ -12,7 +12,7 @@ Activity based authorization is an amazing concept. It can save you a lot of wor
 
   1. A mapping of roles to activities (usually in a database)
   2. A way of specifying which activities require authorization
-  3. A mechanism to authorize a user for a given activity assuming the above
+  3. A mechanism to AuthActivity a user for a given activity assuming the above
 
 ## A mapping of roles to activities
 
@@ -21,40 +21,40 @@ A role represents a collection of activities. It saves you having to associate a
 
 ## A way of specifying which activities require authorization
 
-In C# this could be implemented via attributes. The most flexible solution in this case is a custom attribute [Authorize] which has the following characteristics:
+In C# this could be implemented via attributes. The most flexible solution in this case is a custom attribute [AuthActivity] which has the following characteristics:
 
-* When [Authorize] is a applied to a method, the attribute gets the method name via reflection and uses this as a lookup for the activity name
-	* e.g. To authorize for the UpdateUser Activity:
+* When [AuthActivity] is a applied to a method, the attribute gets the method name via reflection and uses this as a lookup for the activity name
+	* e.g. To AuthActivity for the UpdateUser Activity:
 
 	``` csharp
-	[Authorize]
+	[AuthActivity]
 	public void UpdateUser( … )
 	```
 
-* When the activity name is different to the method name, the [Authorize] attribute may take an additional string parameter specifying the Activity
-	* e.g. To authorize a method for the CreateUser Activity:
+* When the activity name is different to the method name, the [AuthActivity] attribute may take an additional string parameter specifying the Activity
+	* e.g. To AuthActivity a method for the CreateUser Activity:
 
 	``` csharp
-	[Authorize(Activity = “CreateUser”)]
+	[AuthActivity(Activity = “CreateUser”)]
 	public void CreateNewUser( … )
 	```
 
-* When the [Authorize] attribute is applied to a class, it acts as if each public method of the class has the [Authorize] attribute specified
+* When the [AuthActivity] attribute is applied to a class, it acts as if each public method of the class has the [AuthActivity] attribute specified
 	* This requires that all method names map directly to Activity names
 
 
-## A mechanism to authorize a user for a given activity
+## A mechanism to AuthActivity a user for a given activity
 
 As above, the attribute implementation would take the Activity name, the user and the inferred role based on the user and check to see if that role mapped to the specified Activity:
 
 ``` csharp
-public void AuthorizeAttribute(string Activity) {
+public void AuthActivityAttribute(string Activity) {
     User currentUser = GetCurrentUser();
     Role userRole = GetRoleForUser(currentUser);
 
     if(GetActivitiesForRole(userRole).Contains(Activity) == false)
     {
-        // The user is unauthorized for this activity
+        // The user is unAuthActivityd for this activity
     }
 }
 ```

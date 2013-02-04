@@ -94,7 +94,7 @@ table {
 
   .site .title a {
     color: #a00;
-    text-decoration: none;
+    /* text-decoration: none; */
   }
 
   .site .title a:hover {
@@ -104,7 +104,7 @@ table {
   .site .title a.extra {
     color: #aaa;
     text-decoration: none;
-    margin-left: 1em;
+    /* margin-left: 1em; */
   }
 
   .site .title a.extra:hover {
