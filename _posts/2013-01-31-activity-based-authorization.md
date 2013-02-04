@@ -81,9 +81,13 @@ public void AuthActivityAttribute(string Activity) {
     User currentUser = GetCurrentUser();
     Role userRole = GetRoleForUser(currentUser);
 
-    if(GetActivitiesForRole(userRole).Contains(Activity) == false)
+    if(GetActivitiesForRole(userRole).Contains(Activity))
     {
-        // The user is unauthorized for this activity
+        // Authorized
+    }
+    else
+    {
+        // Unauthorized
     }
 }
 ```
