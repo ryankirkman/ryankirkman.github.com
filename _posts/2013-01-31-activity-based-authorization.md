@@ -37,7 +37,7 @@ public void UpdateUser( ... )
 
 ``` csharp
 [AuthActivity(Activity = “CreateUser”)]
-public void CreateNewUser( ... )
+public void NewUser( ... )
 ```
 
 * When the `[AuthActivity]` attribute is applied to a class, it acts as if each public method of the class has the `[AuthActivity]` attribute specified
