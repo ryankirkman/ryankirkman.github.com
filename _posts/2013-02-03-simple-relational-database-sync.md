@@ -18,7 +18,6 @@ The system is designed to sync individual tables, rather than entire databases a
 
 The architecture required for this system is:
 
-
 * A master database
 * One or more slave databases
 * An interface to query the master database
@@ -41,8 +40,9 @@ SequenceId is not a timestamp, but a greater SequenceId indicates a record has b
 MAX(SequenceId) + 1
 ```
 
-The IsDeleted column allows logical deletion of rows. This is a core requirement of the sync strategy. It allows us to sync deletes which would otherwise be lost if we simply deleted the row. Logical deletes provide a number of other benefits of their own accord:
-* Slaves can choose to physically delete a logically deleted row if storage space is at a premium
+The IsDeleted column allows logical deletion of rows. This is a core requirement of the sync strategy. It allows us to sync Deletes which would otherwise be lost if we simply deleted the row. Logical Deletes provide a number of other benefits of their own accord:
+
+* Slaves can choose to physically delete a logically Deleted row if storage space is at a premium
 * Seeing which rows were deleted can be part of a built-in audit system
 * Rows can be undeleted
 

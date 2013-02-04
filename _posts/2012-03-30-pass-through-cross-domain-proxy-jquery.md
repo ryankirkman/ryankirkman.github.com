@@ -7,7 +7,7 @@ title: Pass Through Cross Domain Proxies with jQuery
 
 If you're building a client-side javascript application that uses external API's you will no doubt have come into contact with the dreaded CORS [Cross Origin Resource Sharing](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing).
 
-CORS means that unless the API server specifically allows it, you won't be able to make a request to an API on a domain different to that of the calling code. For example, you wouldn't be able to call *http://exampleapi.com/getdata* from javascript served from *http://example.com/* if CORS wasn't enabled on *http://exampleapi.com/*.
+CORS means that unless the API server specifically allows it, you won't be able to make a request to an API on a domain different to that of the calling code. For example, you wouldn't be able to call `http://exampleapi.com/getdata` from javascript served from `http://example.com/` if CORS wasn't enabled on `http://exampleapi.com/`.
 
 There are two ways around this. The first, and easiest assuming you control the API server is to enable CORS. I'll leave that as an exercise for the reader.
 
@@ -71,9 +71,9 @@ $.ajax({
     password: 'myPassword'
   },
   crossDomain: true, // set this to ensure our $.ajaxPrefilter hook fires
-  processData: false // We want this to remain an object for  $.ajaxPrefilter, and for performance reasons
-}).success(function(data) { // Use the new jQuery promises interface and assume our API call returns a JSON object
-    var jsonData = JSON.parse(data); // Assume it return a JSON string
+  processData: false // We want this to remain an object for  $.ajaxPrefilter
+}).success(function(data) { // Use the jQuery promises interface
+    var jsonData = JSON.parse(data); // Assume it returns a JSON string
     console.log(jsonData); // Do whatever you want with the data
 });
 ```
