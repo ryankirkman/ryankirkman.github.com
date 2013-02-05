@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Book Summary - The Entrepreneur’s Guide to Customer Development
+title: Book Summary - The Entrepreneur's Guide to Customer Development
 ---
 
-Book Summary - The Entrepreneur’s Guide to Customer Development
+Book Summary - The Entrepreneur's Guide to Customer Development
 ===============================================================
 
 What follows is a bullet point summary of what I thought were the most important parts of this book.
