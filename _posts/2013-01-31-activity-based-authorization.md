@@ -6,7 +6,7 @@ title: Activity Based Authorization
 Activity Based Authorization
 ============================
 
-Activity based authorization is an amazing concept. It can save you a lot of work, and significantly increase the flexibility of your authorization system. Imagine data driven authorization: fully configurable without changing any source code. To get a better understanding of the concept, [read this first](http://lostechies.com/derickbailey/2011/05/24/dont-do-role-based-authorization-checks-do-activity-based-checks/ "Don’t Do Role-Based Authorization Checks; Do Activity-Based Checks").
+Activity based authorization is a great design pattern. It can save you a lot of work, and significantly increase the flexibility of your authorization system. Imagine data driven authorization: fully configurable without changing any source code. To get a better understanding of the concept, [read this first](http://lostechies.com/derickbailey/2011/05/24/dont-do-role-based-authorization-checks-do-activity-based-checks/ "Don’t Do Role-Based Authorization Checks; Do Activity-Based Checks").
 
 
 Three things are required to successfully implement activity based authorization:
@@ -28,48 +28,21 @@ A way of specifying which activities require authorization
 
 In C# this could be implemented via attributes. The most flexible solution in this case is a custom attribute `[AuthActivity]` which has the following characteristics:
 
-* When `[AuthActivity]` is a applied to a method, the attribute gets the method name via reflection and uses this as a lookup for the activity name
-  * e.g. To AuthActivity for the UpdateUser Activity:
+* The `[AuthActivity]` attribute can only be applied to methods (as opposed to classes)
+* The `[AuthActivity]` attribute requires a string parameter specifying the Activity
+  * e.g. To enable authorization on the `NewUser` and `UpdateUser` methods:
 
 ``` csharp
-[AuthActivity]
+[AuthActivity(Activity = "CreateUser")]
+public void NewUser( ... )
+[AuthActivity(Activity = "UpdateUser")]
 public void UpdateUser( ... )
 ```
 
-* When the activity name is different to the method name, the `[AuthActivity]` attribute may take an additional string parameter specifying the Activity
-  * e.g. To AuthActivity a method for the CreateUser Activity:
+Note here that the `NewUser()` method maps to an activity called `CreateUser`, while the `UpdateUser()` method maps to an activity called `UpdateUser`. You're probably saying to yourself _"Couldn't we just let the attribute to get the name of the method at runtime to save us some typing if the method has the same name as the activity?"_. [Unfortunately not](http://stackoverflow.com/questions/2168942/how-do-i-get-the-member-to-which-my-custom-attribute-was-applied/2169373#2169373).
 
-``` csharp
-[AuthActivity(Activity = “CreateUser”)]
-public void NewUser( ... )
-```
+While having to explicitly specify the activity name for each method may seem like a violation of the [DRY](http://en.wikipedia.org/wiki/Don't_repeat_yourself "Don't repeat yourself") principle, the added clarity and readability outweighs the few extra characters you have to type. It also saves you from inadvertently breaking authorization if you later decide to change the method name.
 
-* When the `[AuthActivity]` attribute is applied to a class, it acts as if each public method of the class has the `[AuthActivity]` attribute specified
-  * This requires all method names map directly to Activity names
-
-``` csharp
-[AuthActivity]
-public class UserController
-{
-	public void CreateUser( ... ) { ... }
-	public void UpdateUser( ... ) { ... }
-	public void DeleteUser( ... ) { ... }
-}
-```
-
-* If both the class and method have the `[AuthActivity]` attribute, the method attribute has a higher precedence than the class attribute
-  * This saves you having to decorate each method in a class if all methods except 1 directly map to activities:
-
-``` csharp
-[AuthActivity]
-public class UserController
-{
-	public void CreateUser( ... ) { ... }
-	public void UpdateUser( ... ) { ... }
-	[AuthActivity(Activity = "DeleteUser")]
-	public void RemoveUser( ... ) { ... }
-}
-```
 
 A mechanism to authorize a user for a given activity
 ----------------------------------------------------
