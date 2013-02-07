@@ -43,7 +43,7 @@ public void UpdateUser( ... )
 
 Note here that the `NewUser()` method maps to an activity called `CreateUser`, while the `UpdateUser()` method maps to an activity called `UpdateUser`. You're probably saying to yourself _"Couldn't we just let the attribute to get the name of the method at runtime to save us some typing if the method has the same name as the activity?"_. [Unfortunately not](http://stackoverflow.com/questions/2168942/how-do-i-get-the-member-to-which-my-custom-attribute-was-applied/2169373#2169373).
 
-While having to explicitly specify the activity name for each method may seem like a violation of the [DRY](http://en.wikipedia.org/wiki/Don't_repeat_yourself "Don't repeat yourself") principle, the added clarity and readability outweighs the few extra characters you have to type. It also saves you from inadvertently breaking authorization if you later decide to change the method name.
+While having to explicitly specify the activity name for each method may seem like a violation of the [DRY principle](http://en.wikipedia.org/wiki/Don't_repeat_yourself "Don't repeat yourself"), the added clarity and readability outweighs the few extra characters you have to type. It also saves you from inadvertently breaking authorization if you later decide to change the method name.
 
 
 A mechanism to authorize a user for a given activity
