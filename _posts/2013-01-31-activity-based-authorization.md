@@ -20,7 +20,9 @@ Three things are required to successfully implement activity based authorization
 A mapping of roles to activities
 --------------------------------
 
-A role represents a collection of activities. It saves you having to associate activities directly to a user. By decoupling activities and users via roles, you are able to add activities to roles on the fly.
+A role represents a collection of activities. It saves you having to tie activities directly to a user. By decoupling activities and users via roles, you are able to add activities to roles on the fly.
+
+The application itself never deals with roles. The application only specifies activities. It is up to the activity system to check whether the activity is associated with one of the user's roles.
 
 
 A way of specifying which activities require authorization
@@ -50,11 +52,11 @@ A mechanism to authorize a user for a given activity
 As above, the attribute implementation would take the Activity name, the user and the inferred role based on the user and check to see if that role mapped to the specified Activity:
 
 ``` csharp
-public void AuthActivityAttribute(string Activity) {
+public void AuthActivityAttribute(string Activity)
+{
     User currentUser = GetCurrentUser();
-    Role userRole = GetRoleForUser(currentUser);
 
-    if(GetActivitiesForRole(userRole).Contains(Activity))
+    if( GetUserActivities( currentUser ).Contains( Activity ) )
     {
         // Authorized
     }
@@ -62,6 +64,23 @@ public void AuthActivityAttribute(string Activity) {
     {
         // Unauthorized
     }
+}
+
+public List<Activity> GetUserActivities(User currentUser)
+{
+    List<Role> roles = GetUserRoles( currentUser );
+    List<Activity> activities = new List<Activity>();
+
+    foreach(Role role in roles)
+    {
+        List<Activity> roleActivities = GetRoleActivities( role );
+        activities.AddRange( roleActivities );
+    }
+
+    return activities;
+
+    // If we wanted to be concise, this whole method could be written as:
+    // return GetUserRoles( currentUser ).SelectMany( x => x.GetRoleActivities( x ) );
 }
 ```
 
