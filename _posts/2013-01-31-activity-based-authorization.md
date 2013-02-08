@@ -20,7 +20,9 @@ Three things are required to successfully implement activity based authorization
 A mapping of roles to activities
 --------------------------------
 
-A role represents a collection of activities. It saves you having to associate activities directly to a user. By decoupling activities and users via roles, you are able to add activities to roles on the fly.
+A role represents a collection of activities. It saves you having to tie activities directly to a user. By decoupling activities and users via roles, you are able to add activities to roles on the fly.
+
+The application itself never deals with roles. The application only specifies activities. It is up to the activity system to check whether the activity is associated with one of the user's roles.
 
 
 A way of specifying which activities require authorization
@@ -41,7 +43,7 @@ public void UpdateUser( ... )
 
 Note here that the `NewUser()` method maps to an activity called `CreateUser`, while the `UpdateUser()` method maps to an activity called `UpdateUser`. You're probably saying to yourself _"Couldn't we just let the attribute to get the name of the method at runtime to save us some typing if the method has the same name as the activity?"_. [Unfortunately not](http://stackoverflow.com/questions/2168942/how-do-i-get-the-member-to-which-my-custom-attribute-was-applied/2169373#2169373).
 
-While having to explicitly specify the activity name for each method may seem like a violation of the [DRY](http://en.wikipedia.org/wiki/Don't_repeat_yourself "Don't repeat yourself") principle, the added clarity and readability outweighs the few extra characters you have to type. It also saves you from inadvertently breaking authorization if you later decide to change the method name.
+While having to explicitly specify the activity name for each method may seem like a violation of the [DRY principle](http://en.wikipedia.org/wiki/Don't_repeat_yourself "Don't repeat yourself"), the added clarity and readability outweighs the few extra characters you have to type. It also saves you from inadvertently breaking authorization if you later decide to change the method name.
 
 
 A mechanism to authorize a user for a given activity
@@ -50,11 +52,11 @@ A mechanism to authorize a user for a given activity
 As above, the attribute implementation would take the Activity name, the user and the inferred role based on the user and check to see if that role mapped to the specified Activity:
 
 ``` csharp
-public void AuthActivityAttribute(string Activity) {
+public void AuthActivityAttribute(string Activity)
+{
     User currentUser = GetCurrentUser();
-    Role userRole = GetRoleForUser(currentUser);
 
-    if(GetActivitiesForRole(userRole).Contains(Activity))
+    if( GetUserActivities( currentUser ).Contains( Activity ) )
     {
         // Authorized
     }
@@ -62,6 +64,23 @@ public void AuthActivityAttribute(string Activity) {
     {
         // Unauthorized
     }
+}
+
+public List<Activity> GetUserActivities(User currentUser)
+{
+    List<Role> roles = GetUserRoles( currentUser );
+    List<Activity> activities = new List<Activity>();
+
+    foreach(Role role in roles)
+    {
+        List<Activity> roleActivities = GetRoleActivities( role );
+        activities.AddRange( roleActivities );
+    }
+
+    return activities;
+
+    // If we wanted to be concise, this whole method could be written as:
+    // return GetUserRoles( currentUser ).SelectMany( x => x.GetRoleActivities( x ) );
 }
 ```
 
