@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 3 Approaches to SSO
+title: Three Approaches to SSO
 ---
 
 Three Approaches to SSO
