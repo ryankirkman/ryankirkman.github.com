@@ -47,6 +47,7 @@ The `IsDeleted` column allows logical deletion of rows. This is a core requireme
 * Slaves can choose to physically delete a logically Deleted row if storage space is at a premium
 * Seeing which rows were deleted can be part of a built-in audit system
 * Rows can be undeleted
+* It still allows us to take advantage things like uniqueness constraints
 
 
 General Overview of the Sync Strategy
