@@ -6,7 +6,7 @@ title: Simple Relational Database Synchronization
 Simple Relational Database Sync
 ===============================
 
-This article describes a system that facilitates simple synchronization (sync) between databases. The system is designed for simple sync between a heterogeneous collection of databases in which it is difficult to implement a prepackaged replication solution.
+This article describes a system that facilitates simple synchronization (sync) between databases. The system is designed for simple sync between a heterogeneous collection of databases in which it is difficult to implement a prepackaged replication solution. To add to the simplicity of the system, the sync system is stateless.
 
 The sync system was originally designed for relatively low transaction slave databases and an aggregation master database. An example would be syncing user preferences, browsing history and bookmarks between computers in Google Chrome.
 
@@ -32,15 +32,17 @@ The architecture required for this system is:
 Common Table Structure
 ----------------------
 
-Each table in the database to be synced has a SequenceId column of integer type and an IsDeleted column of boolean type.
+Each table in the database to be synced has a `SequenceId` column of integer type and an `IsDeleted` column of boolean type.
 
-SequenceId is not a timestamp, but a greater SequenceId indicates a record has been modified more recently. It is analogous to the [rowversion](http://msdn.microsoft.com/en-us/library/ms182776.aspx) data type in SQL Server. Every time a row is Inserted, Updated or logically deleted (via the IsDeleted column), SequenceId is set to:
+SequenceId is not a timestamp, but a greater SequenceId indicates a record has been modified more recently. It is analogous to the [rowversion](http://msdn.microsoft.com/en-us/library/ms182776.aspx) data type in SQL Server. Every time a row is Inserted, Updated or logically Deleted (via the `IsDeleted` column), SequenceId is set to:
 
 ``` sql
 MAX(SequenceId) + 1
 ```
 
-The IsDeleted column allows logical deletion of rows. This is a core requirement of the sync strategy. It allows us to sync Deletes which would otherwise be lost if we simply deleted the row. Logical Deletes provide a number of other benefits of their own accord:
+This allows the client to pick up all changes to a table the next time it requests a table sync by passing in the most recent `SequenceId` it knows about.
+
+The `IsDeleted` column allows logical deletion of rows. This is a core requirement of the sync strategy. It allows us to sync Deletes which would otherwise be lost if we simply deleted the row. Logical Deletes provide a number of other benefits of their own accord:
 
 * Slaves can choose to physically delete a logically Deleted row if storage space is at a premium
 * Seeing which rows were deleted can be part of a built-in audit system
@@ -54,18 +56,18 @@ __For sending changes from slaves -> master__
 
 * When a slave Inserts, Updates or Deletes a row it sends a message to the messaging queue
   * The message contains the operation (e.g. INSERT, UPDATE, DELETE) and a copy of the modified row
-* A service consumes messages in the queue, performing the appropriate operation with the row on the master database (e.g. INSERT row, UPDATE row, logically DETLE row)
+* A service consumes messages in the queue, performing the appropriate operation with the row on the master database (e.g. INSERT row, UPDATE row, logically DELETE row).
 
 
 
 __For pulling changes from master -> slave__
 
-The following operation is best encapsulated in a "Master" HTTP sync service for maximum flexibility and modularization:
+The following query is essentially the core of the sync strategy. It is best encapsulated in a "Master" HTTP sync service for maximum flexibility and modularization:
 
 ``` sql
 SELECT *
 FROM [Table]
-WHERE SequenceId > Current_Slave_SequenceId
+WHERE SequenceId > [Current_Slave_SequenceId]
 ```
 
 
@@ -80,6 +82,11 @@ Because we don't know which of the rows in the new collection the slave already 
   * If a primary key violation occurs, attempt to UPDATE the record
 * Check first to see if a row exists with the primary key of the "new" row
   * If the primary key already exists, attempt to UPDATE rather than INSERT
+
+An example of how deletes could be dealt with on a client if storage capacity was a concern:
+
+* For all rows retrieved from the sync service
+  * If `IsDeleted == 1`, perform `DELETE FROM [Table] WHERE Id = [Deleted_Row_Id]`
 
 
 Potential Performance Optimizations
