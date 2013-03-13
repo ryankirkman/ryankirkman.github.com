@@ -57,4 +57,4 @@ Comparison of the impact of `INNER JOIN` vs `LEFT JOIN` for my query:
 	</tr>
 </table>
 
-Interestingly, this drastic difference only appears to happen on SQLCE. On full SQL Server 2008 R2, the resulting query plans and estimated costs are identical.
+Interestingly, this drastic difference only appears to happen in SQLCE. In full SQL Server 2008 R2 with the same database structure, foreign keys and indexes, the resulting query plans and estimated costs are identical.
