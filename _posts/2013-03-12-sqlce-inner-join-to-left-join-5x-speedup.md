@@ -32,4 +32,6 @@ Notice the difference? The second query uses a `LEFT JOIN` instead of an `INNER 
 
   > Other behavior that I noticed was that if I changed the inner join to a left join, the optimizer came up with a different much more efficient plan. This appears to be a flaw in the optimizer but I would like to speak to someone at Microsoft before making that claim.
 
+By changing the first `INNER JOIN` to a `LEFT JOIN`, the slow query dropped from around 8 seconds completion time to between 1 and 2 seconds.
+
 Note that this may only apply to a certain subset of queries under special circumstances. I haven't done an extensive investigation.
