@@ -213,7 +213,7 @@ table {
     text-align: left;
   }
 
-  blockquote > p {
+  #post blockquote > p {
     font-size: 16px;
     font-family: georgia,serif;
     font-style: italic;
@@ -222,4 +222,9 @@ table {
     margin-left: 50px;
     padding-left: 15px;
     border-left: 3px solid #ccc;
+  }
+
+  #post table th, td {
+    border: 1px solid black;
+    padding:10px;
   }
