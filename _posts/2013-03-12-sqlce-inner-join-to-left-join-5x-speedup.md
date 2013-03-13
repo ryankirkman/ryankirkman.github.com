@@ -34,7 +34,7 @@ Notice the difference? The second query uses a `LEFT JOIN` instead of an `INNER 
 
 Comparison of the impact of `INNER JOIN` vs `LEFT JOIN` for my query:
 
-<table>
+<table style="empty-cells: hide">
 	<tr>
 		<th></th>
 		<th>INNER JOIN</th>
