@@ -2,3 +2,4 @@ _drafts/
 _site/
 *.swp
 *.bat
+.DS_STORE
