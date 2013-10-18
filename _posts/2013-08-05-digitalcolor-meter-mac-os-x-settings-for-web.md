@@ -8,7 +8,7 @@ DigitalColor Meter for Mac OS X - Settings for the Web
 
 If you're in need of an eye dropper application in Mac OS X for web development you're in luck - [DigitalColor Meter](http://www.apple.com/osx/apps/all.html#colormeter "DigitalColor Meter") works really well.
 
-If you're like me, you'll find all of the options in the drop-down representing different color spaces confusing. For web development which one should you choose? The correct setting is "Display in Generic RGB":
+If you're like me, you'll find all of the options in the drop-down representing different color spaces confusing. For web development which one should you choose? The correct setting is "Display native values":
 
 ![DigitalColor Meter Web Development Settings](/images/digitalcolor_meter_web_settings.png)
 
